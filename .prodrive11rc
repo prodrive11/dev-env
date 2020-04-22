@@ -1,5 +1,4 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-
 LS_COLORS='rs=0:di=1;35:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*
 .lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:';
 export LS_COLORS
@@ -16,11 +15,32 @@ export RLWRAP_EDITOR=vim
 export SPHINXQ_HOME=/home/prodrive11/workspace/sphinxQ
 
 set -o vi
-#fancy prompt
-__git_ps1 () { local b="$(git symbolic-ref HEAD 2>/dev/null)"; [[ -n "$b" ]] && printf " (%s)" "${b##refs/heads/}" ; }
-#export PS1='\[\e[0;36m\]┌─\[\e[1;37m\][\u@\h]\[\e[0m\]\[\e[0;36m\]─\[\e[0;93m\](\w)\n\[\e[0;36m\]└─\[\e[1;32m\][\A]\[\e[0m\]\$ '
-#export PS1='\[\e[01;30m\]\t `if [ $? = 0 ]; then echo "\[\e[32m\]✔"; else echo "\[\e[31m\]✘"; fi` \[\e[00;37m\]\u\[\e[01;37m\]:`pat=".*nothing to commit.*"; [[ ! $(git status 2> /dev/null | tail -n1) =~ $pat ]] && echo "\[\e[31m\]" || echo "\[\e[32m\]"`$(__git_ps1 "(%s)\[\e[00m\]")\[\e[01;34m\]\w\[\e[00m\]\$ '
+### Ensure Unicode ### {{{
+if [ -z "${LANG}" ]; then export LANG="en_US.UTF-8" ; fi
+if [ -z "${LANGUAGE}" ]; then export LANGUAGE="en_US.UTF-8" ; fi
 
-export PS1='\[\e[0;36m\]┌─[\[\e[1;37m\]\u@\h\[\e[0m\]\[\e[0;36m\]]─[\[\e[0;93m\]$PTK_ZONE-$PTK_GLX\[\e[0;36m\]] \[\e[01;34m\]\w`pat=".*nothing to commit.*"; [[ ! $(git status 2> /dev/null | tail -n1) =~ $pat ]] && echo "\[\e[31m\] ⎇ ✎" || echo "\[\e[32m\] ⎇ ✎"`$(__git_ps1 "(%s)\[\e[00m\]")\n\[\e[0;36m\]└─[\[\e[01;30m\]\t\[\e[0;36m\]] `if [ $? = 0 ]; then echo "\[\e[32m\]✔"; else echo "\[\e[31m\]✘"; fi` \[\e[00m\]\$ '
+#fancy promptgents ### {{{
+#  if [ -s "${HOME}/.ssh/id_ed25519" ] || [ -s "${HOME}/.ssh/id_rsa" ]; then
+#      ## If there is a ssh key, load key for ssh
+#      __ssh_agent
+#    else
+#      if [ "$(gpg -K 2>/dev/null | awk 'BEGIN {AK=0} /^ssb>?\s/ {if($4=="[A]"){AK=1}} END {print AK}')" -eq 1 ]; then
+#          ## If no ssh key, and if there is a gpg auth key, load gpg key for ssh
+#          __ssh_gpg_agent
+#      fi
+#  fi
 
+[[ -f .prodrive11_ps1 ]] && . .prodrive11_ps1
 
+#color man pages with less
+man() {
+    env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+}
