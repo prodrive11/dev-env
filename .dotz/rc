@@ -6,16 +6,11 @@ LS_COLORS='rs=0:di=1;35:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd
 export LS_COLORS
 export GIT_EDITOR=vim
 export EDITOR=vim
-#generating index
-[[ ! -d ~/.tags ]] && mkdir ~/.tags
-find -L ~/PTK_ROOT/ | grep -v '/test/' | grep -v '/PTK_ROOT/lib/' | egrep '\.q$' > ~/.tags/index 2>/dev/null
-cat ~/.tags/index | xargs egrep '^[a-zA-Z0-9_.]+:(\s)*\{' |awk {'split($1,a,":"); print a[2]"\t"a[1]"\t/^"a[2]":/;\"\tf"'} | sort > ~/.tags/tags 2>/dev/null
-
 #rlwrap completion and search based on tags
 alias rlwrap='rlwrap -f $HOME/.tags/tags -r -c -m'
 alias rq='rlwrap q'
 export RLWRAP_EDITOR=vim
-export SPHINXQ_HOME=/home/prodrive11/workspace/sphinxQ
+export SPHINXQ_HOME=$HOME/workspace/sphinxQ
 
 set -o vi
 ### Ensure Unicode ### {{{
@@ -34,3 +29,13 @@ man() {
     LESS_TERMCAP_us=$(printf "\e[1;32m") \
     man "$@"
 }
+
+#generating index
+__is_idx_fresh(){ local df now ; df=$(stat -c %Y "$1") ; now=$(date +%s); return $((900>now-df)) ; } 
+[[ ! -d ~/.tags ]] && mkdir ~/.tags
+if __is_idx_fresh ~/.tags/index &>/dev/null ;then 
+  find -L ~/PTK_ROOT/ | grep -v '/test/' | grep -v '/PTK_ROOT/lib/' | egrep '\.q$' > ~/.tags/index 2>/dev/null
+  cat ~/.tags/index | xargs egrep '^[a-zA-Z0-9_.]+:(\s)*\{' |awk {'split($1,a,":"); print a[2]"\t"a[1]"\t/^"a[2]":/;\"\tf"'} | sort > ~/.tags/tags 2>/dev/null
+fi
+
+
