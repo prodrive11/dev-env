@@ -1,3 +1,6 @@
+# Uses tabstop=4; shiftwidth=4 tabs; foldmarker={{{}}};
+# vim:set syntax=sh:
+
 export PROMPT_COMMAND=__prompt_command      # Func to gen PS1 after CMDs
 ############################################################## 
 #                           Colors:

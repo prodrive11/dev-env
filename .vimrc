@@ -16,12 +16,12 @@ set path+=**
 " Display all matching files when we tab complete
 set wildmenu
 
-:set tags=~/tags
+:set tags=~/.tags/tags
 :set ic
 
-map ; :execute "vimgrep/" . expand("<cword>") . "/j `cat ~/index`" <Bar> cw<CR>
-:command -nargs=1 Sgrep :execute "vimgrep /" . expand("<args>") . "/j `cat ~/index`" | copen
-:command -nargs=0 T :execute "tabnew ~/index"
+map ; :execute "vimgrep/" . expand("<cword>") . "/j `cat ~/.tags/index`" <Bar> cw<CR>
+:command -nargs=1 Sgrep :execute "vimgrep /" . expand("<args>") . "/j `cat ~/.tags/index`" | copen
+:command -nargs=0 T :execute "tabnew ~/.tags/index"
 
 " rust ctags
 " cargo install rusty-tags

@@ -1,0 +1,21 @@
+# Uses tabstop=4; shiftwidth=4 tabs; foldmarker={{{}}};
+# vim:set syntax=sh:
+
+so() { [ -s $1 ] && source $1; }
+
+#so ~/.dotz/profile                  ## main configuration
+
+### Agents ### {{{
+## These are outside of the function conf to skip the interactive check
+so ~/.dotz/sshagent                  ## SSH agent, have before export
+so ~/.dotz/sshgpgagent               ## SSH GPG agent, have before export
+### End Agents ### }}}
+
+so ~/.dotz/rc 
+so ~/.dotz/installcheck              ## Checks for installs, $MISSING_PROGRAMS
+
+### Interactive ### {{{
+if [[ $- == *i* ]]; then
+    so ~/.dotz/ps1                   ## COMMAND_PROMPT function
+fi
+### End Interactive ### }}}
