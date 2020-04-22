@@ -1,6 +1,7 @@
 *
 .vim/**/.git/
 !*/
+!README.md
 !.gitignore
 !.vim/
 !.vimrc
@@ -9,3 +10,5 @@
 !bin/tmux-start
 !notes/*
 .cargo/
+.rustup/
+.vscode/
