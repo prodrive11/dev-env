@@ -17,6 +17,9 @@ set -o vi
 if [ -z "${LANG}" ]; then export LANG="en_US.UTF-8" ; fi
 if [ -z "${LANGUAGE}" ]; then export LANGUAGE="en_US.UTF-8" ; fi
 
+# ($1) is revision. ($2) username. ($3) email
+git_change_author(){  git rebase -i $1 --exec "git -c user.name=\"$2\" -c user.email=\"$3\" commit --amend --reset-author --no-edit" ; }
+
 #color man pages with less
 man() {
     env \
