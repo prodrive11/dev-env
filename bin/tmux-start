@@ -1,0 +1,25 @@
+#!/bin/bash
+# Set the default cwd for new windows (optional, otherwise defaults to session cwd)
+#tmux set-option default-path /
+
+
+# var for session name (to avoid repeated occurences)
+sn=$USER
+
+# Start the session and window 0 in /etc
+#   This will also be the default cwd for new windows created
+#   via a binding unless overridden with default-path.
+cd ~/
+tmux new-session -s "$sn"  -n "colo" -d \; split-window -v \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. colo.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
+tmux new-window -t "$sn:1" -n "aws"  \; split-window -v \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. aws.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
+tmux new-window -t "$sn:2" -n "edit" \; split-window -v \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. release.env' C-m \; send-keys 'clear' C-m \; setw synchronize-panes off 
+tmux new-window -t "$sn:3" -n "cmd"  \; split-window -h -p 40 \; send-keys 'htop' C-m \; split-window -v \; send-keys 'ls -al' C-m
+
+# cd ~
+# for i in {1..4}; do
+#     tmux new-window -t "$sn:$i" -n "var$i" '. colo.env'
+# done
+
+# Select window #1 and attach to the session
+tmux select-window -t "$sn:0"
+tmux -2 attach-session -t "$sn"

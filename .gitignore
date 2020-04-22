@@ -1,0 +1,11 @@
+*
+.vim/**/.git/
+!*/
+!.gitignore
+!.vim/
+!.vimrc
+!.tmux.conf
+!.prodrive11rc
+!bin/tmux-start
+!notes/*
+.cargo/
