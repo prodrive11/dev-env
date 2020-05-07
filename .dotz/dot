@@ -13,6 +13,7 @@ so ~/.dotz/sshgpgagent               ## SSH GPG agent, have before export
 
 so ~/.dotz/rc 
 so ~/.dotz/installcheck              ## Checks for installs, $MISSING_PROGRAMS
+so ~/.dotz/devenv 
 
 ### Interactive ### {{{
 if [[ $- == *i* ]]; then

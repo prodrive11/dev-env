@@ -9,6 +9,7 @@ export EDITOR=vim
 #rlwrap completion and search based on tags
 alias rlwrap='rlwrap -f $HOME/.tags/tags -r -c -m'
 alias rq='rlwrap q'
+alias cpu='echo -e "$(sensors)\n$(grep MHz /proc/cpuinfo)"'
 export RLWRAP_EDITOR=vim
 export SPHINXQ_HOME=$HOME/workspace/sphinxQ
 

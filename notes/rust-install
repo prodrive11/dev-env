@@ -3,3 +3,7 @@ export RUSTUP_HOME=/mnt/vmdisk01/$USER/.rustup
 export PATH=$PATH:$CARGO_HOME/bin
 
 curl https://sh.rustup.rs -sSf | sh
+
+cargo install sccache
+export RUSC_WRAPPER=sccache
+rustup target install i686-unknown-linux-gnu
