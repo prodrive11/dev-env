@@ -42,4 +42,6 @@ if __is_idx_fresh ~/.tags/index &>/dev/null ;then
   cat ~/.tags/index | xargs egrep '^[a-zA-Z0-9_.]+:(\s)*\{' |awk {'split($1,a,":"); print a[2]"\t"a[1]"\t/^"a[2]":/;\"\tf"'} | sort > ~/.tags/tags 2>/dev/null
 fi
 
+type aws_completer >/dev/null 2>&1 && complete -C '/usr/local/bin/aws_completer' aws
+
 

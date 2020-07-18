@@ -36,3 +36,10 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
+" other <leader> is \
+" run q current file
+autocmd FileType q nnoremap  <leader>rq   :!q % -p 5001<CR>
+" compile c source to object name with the same name, no extension (:r)
+autocmd FileType c nnoremap  <leader>rc   :!gcc -g % -o %:r<CR>
+
+
