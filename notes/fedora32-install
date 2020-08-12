@@ -1,0 +1,73 @@
+#Docker
+To date (August 2020) fedora32 docker repos are not updated.
+* Need to install 'moby' instead.
+* SELinux kicks in as well, need to set to 'permissive'.
+* Open firewall for docker0 networking
+* Add docker to backward compatibility cgroups 
+
+
+```
+ systemctl stop docker
+ sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+ sudo firewall-cmd --permanent --zone=trusted --add-interface=docker0
+ sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-masquerade
+```
+
+## Move docker images store to other location
+```console
+#$cat /etc/docker/daemon.json
+
+{
+	"data-root": "/data/hdd/research01/docker"
+}
+```
+
+# Additional Disk Partitioning
+1. Find was disk found (can see that in BIOS). 
+
+```
+ls /dev/sd*
+/dev/sda   /dev/sda1  /dev/sda2
+```
+
+2. Create partitions
+```
+fdisk /dev/sdb
+# option for new partitions: new('n')+primary('p'), 
+# than default p number, and pick size
+# write('w') at the end
+
+ls /dev/sd*
+/dev/sda  /dev/sda1  /dev/sda2  /dev/sdb  /dev/sdb1
+
+```
+
+3. Crate filesystem
+```
+/sbin/mkfs.ext3 -L /data /dev/sdb1
+```
+
+4. Mount partition
+
+* The filesystem may then be manually mounted using the mount command:  
+
+```
+mkdir /data
+mount /dev/sdb1 /data
+```
+
+* Persist mounts in '/etc/fstab':
+
+```
+/dev/mapper/fedora_localhost--live-root /                       ext4    defaults        1 1
+UUID=8d526ecb-95d5-480f-9a40-be174176fa17 /boot                   ext4    defaults        1 2
+UUID=8BF2-D324          /boot/efi               vfat    umask=0077,shortname=winnt 0 2
+/dev/mapper/fedora_localhost--live-home /home                   ext4    defaults        1 2
+/dev/mapper/fedora_localhost--live-swap none                    swap    defaults        0 0
+LABEL=/data     /data/hdd/data01 ext4 defaults 1 2
+LABEL=/log      /data/hdd/log01 xfs defaults 1 2
+LABEL=/research /data/hdd/research01 btrfs defaults 1 2
+```
+
+
+

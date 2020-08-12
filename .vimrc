@@ -4,8 +4,8 @@ set mouse=a
 syntax on
 syntax enable
 set background=dark
-colorscheme solarized8
-let g:solarized_termcolors=256
+colorscheme solarized8_low
+" let g:solarized_termcolors=256
 filetype plugin indent on
 
 " FINDING FILES:
