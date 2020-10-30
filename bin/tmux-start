@@ -10,11 +10,11 @@ sn=$USER
 #   This will also be the default cwd for new windows created
 #   via a binding unless overridden with default-path.
 cd ~/
-tmux new-session -s "$sn"  -n "colo" -d \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. heimdall-profiles/localdev-colo.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
-tmux new-window -t "$sn:1" -n "aws"  \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. heimdall-profiles/localdev-aws.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
-tmux new-window -t "$sn:2" -n "fgt"  \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. heimdall-profiles/localdev-fgt.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
-tmux new-window -t "$sn:3" -n "mkt"  \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. heimdall-profiles/localdev-stress-colo.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
-tmux new-window -t "$sn:4" -n "edit" \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. heimdall-profiles/localdev-release.env' C-m \; send-keys 'clear' C-m \; setw synchronize-panes off 
+tmux new-session -s "$sn"  -n "colo" -d \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. thor-profiles/localdev-colo.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
+tmux new-window -t "$sn:1" -n "aws"  \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. thor-profiles/localdev-aws.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
+tmux new-window -t "$sn:2" -n "fgt"  \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. thor-profiles/localdev-fgt.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
+tmux new-window -t "$sn:3" -n "mkt"  \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. thor-profiles/localdev-stress-colo.env' Enter \; send-keys 'clear' C-m \; setw synchronize-panes off 
+tmux new-window -t "$sn:4" -n "edit" \; split-window -v \; setw synchronize-panes on \; send-keys C-z '. thor-profiles/localdev-release.env' C-m \; send-keys 'clear' C-m \; setw synchronize-panes off 
 tmux new-window -t "$sn:5" -n "cmd"  \; split-window -h -p 40 \; send-keys 'htop' C-m \; split-window -v \; send-keys 'ls -al' C-m
 
 # cd ~
