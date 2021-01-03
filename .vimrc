@@ -13,6 +13,12 @@ filetype plugin indent on
 " Provides tab-completion for all file-related tasks
 set path+=**
 
+" spellcheck
+" navigate: next: ]s   prev:[s  add-word: zg  suggestion: z=
+set spelllang=en
+set spellfile=~/.dotz/vim/spell.en.utf-8.add
+set spell
+
 " Display all matching files when we tab complete
 set wildmenu
 

@@ -11,7 +11,12 @@ alias rlwrap='rlwrap -f $HOME/.tags/tags -r -c -m'
 alias rq='rlwrap q'
 alias cpu='echo -e "$(sensors)\n$(grep MHz /proc/cpuinfo)"'
 export RLWRAP_EDITOR=vim
-export SPHINXQ_HOME=$HOME/workspace/sphinxQ
+export SPHINXQ_HOME=${SPHINXQ_HOME:-$HOME/workspace/sphinxQ}
+
+# magig-space: expands commadns history 
+# #ie. add space to !echo like: '!echo ', and it will expand to this command - so you can inspect
+# same with '!! ' & `!-2 ` and so on...
+bind Space:magic-space
 
 set -o vi
 ### Ensure Unicode ### {{{
