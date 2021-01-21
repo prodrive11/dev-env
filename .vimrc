@@ -17,7 +17,7 @@ set path+=**
 " navigate: next: ]s   prev:[s  add-word: zg  suggestion: z=
 set spelllang=en
 set spellfile=~/.dotz/vim/spell.en.utf-8.add
-set spell
+" set spell
 
 " Display all matching files when we tab complete
 set wildmenu

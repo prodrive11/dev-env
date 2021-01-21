@@ -57,16 +57,16 @@ function __prompt_command() {
    PS1+="$Clock\t$Cya]─["
 
    ## Backgrounded running jobs
-   local BKGJBS=$(jobs -r | wc -l | tr -d ' ')
+   local BKGJBS="$(jobs -r | wc -l | tr -d ' ')"
    PS1+="$Creset${BKGJBS} ${FlagsC}$Ubg"
 
    ## Stopped Jobs
-   local STPJBS=$(jobs -s | wc -l | tr -d ' ')
+   local STPJBS="$(jobs -s | wc -l | tr -d ' ')"
    PS1+="$Creset${STPJBS} ${FlagsC}$Uflag"
    PS1+="$Cya] "
 
    # prev command status
-   local exit_st=$(if [ $EXIT = 0 ]; then echo "$BGre✔"; else echo "$BRed✘"; fi);
+   local exit_st="$(if [ $EXIT = 0 ]; then echo "$BGre✔"; else echo "$BRed✘"; fi)"
    PS1+="$exit_st "
 
    # prompt
